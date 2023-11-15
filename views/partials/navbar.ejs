@@ -19,19 +19,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/temperament">Temperament</a>
                 </li>
-                <% if (!user) { console.log(user)%>
+                <% if (!user) { %>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Sign in</a>
                     </li>
-                    <% } else {%>
-                        <li class="nav-item">
-                            <p class="nav-link">Hello <%= user.username %>
-                            </p>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                        <% }; %>
+                <% } else { %>
+                    <li class="nav-item">
+                        <p class="nav-link">Hello <%= user.username %></p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </div>

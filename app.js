@@ -8,7 +8,10 @@ var logger = require('morgan');
 var flash = require('express-flash');
 var passport = require('passport');
 var db = require("./models");
+var populateAnimals = require('./services/populateAnimals'); 
+var populateUsers = require('./services/populateUsers'); 
 db.sequelize.sync({ force: false })
+const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var animalsRouter = require('./routes/animals');
@@ -27,6 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Passport Configuration
 app.use(require('express-session')({
@@ -57,6 +62,14 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+db.sequelize.sync()
+  .then(async () => {
+    console.log('Database and tables synchronized!');
+    await populateAnimals();
+    await populateUsers();
+  })
+  .catch((err) => console.error('Error synchronizing database and tables: ', err));
 
 module.exports = app;
 
