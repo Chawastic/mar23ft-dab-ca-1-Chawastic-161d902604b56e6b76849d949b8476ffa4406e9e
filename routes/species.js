@@ -1,22 +1,28 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { Animal } = require('../models');
 
 router.get('/', async function (req, res, next) {
-    species = [
-        {
-            Id: 1,
-            Name: "Tedy bear hamster"
-        },
-        {
-            Id: 2,
-            Name: "Jack-Russel"
-        }
-    ]
-    res.render("species", {user: null})
-})
+  try {
+    // Fetch all animals from the Animals table
+    const animals = await Animal.findAll();
 
-router.post('/update', async function (req,res,next){
-    res.render("index",{user: null})
-})
+    // Extract unique species and corresponding animal IDs
+    const uniqueSpecies = [...new Set(animals.map(animal => animal.species))];
+    const speciesData = uniqueSpecies.map(species => {
+      const animalIds = animals.filter(animal => animal.species === species).map(animal => animal.id);
+      return { Ids: animalIds.join(', '), Name: species };
+    });
+
+    res.render('species', { user: req.user, species: speciesData });
+  } catch (error) {
+    console.error('Error fetching animals:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+router.post('/update', async function (req, res, next) {
+  res.render('index', { user: null });
+});
 
 module.exports = router;

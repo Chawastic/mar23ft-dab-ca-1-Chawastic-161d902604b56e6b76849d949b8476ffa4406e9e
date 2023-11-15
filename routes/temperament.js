@@ -24,7 +24,6 @@ router.get('/', async function (req, res, next) {
                 };
             });
 
-        console.log(uniqueTemperaments); // Log the processed data
 
         res.render("temperament", { user: null, temperament: uniqueTemperaments });
     } catch (error) {
