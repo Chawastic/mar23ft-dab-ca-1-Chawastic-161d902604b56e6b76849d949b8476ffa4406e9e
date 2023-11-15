@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
@@ -7,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var flash = require('express-flash');
 var passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 var db = require("./models");
-var populateAnimals = require('./services/populateAnimals'); 
-var populateUsers = require('./services/populateUsers'); 
+var populateAnimals = require('./services/populateAnimals');
+var populateUsers = require('./services/populateUsers');
 db.sequelize.sync({ force: false })
 const bodyParser = require('body-parser');
 
@@ -42,10 +42,47 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Passport serialization
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await db.User.findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
+// Passport local strategy for login
+passport.use(new LocalStrategy(
+  async (username, password, done) => {
+    try {
+      const user = await db.User.findOne({ where: { username } });
+
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+
+      if (user.password !== password) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  }
+));
+
 app.use('/', indexRouter);
 app.use('/animals', animalsRouter);
 app.use('/species', speciesRouter);
 app.use('/temperament', temperamentRouter);
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -72,4 +109,3 @@ db.sequelize.sync()
   .catch((err) => console.error('Error synchronizing database and tables: ', err));
 
 module.exports = app;
-
