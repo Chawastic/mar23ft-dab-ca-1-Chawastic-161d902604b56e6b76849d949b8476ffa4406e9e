@@ -34,7 +34,6 @@ fs.readdirSync(__dirname)
       db[modelName].associate(db);
     }
   });
-  console.log(db)
 
   db.Animal.belongsToMany(db.User, { through: 'Adoptions' });
   db.User.belongsToMany(db.Animal, { through: 'Adoptions' });
