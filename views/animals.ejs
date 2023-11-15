@@ -48,28 +48,28 @@
         <% animals.forEach(function(animal) { %>
           <div class="row px-3 py-1 w-100">
             <span class="col py-1 bg-light ">
-              <%=animal.Id%>
+              <%=animal.id%>
             </span>
             <span class="col py-1 bg-light">
-              <%=animal.Name%>
+              <%=animal.name%>
             </span>
             <span class="col py-1 bg-light">
-              <%=animal.Species%>
+              <%=animal.species%>
             </span>
             <span class="col py-1 bg-light">
-              <%=animal.Birthday%>
+              <%= animal.birthday ? new Date(animal.birthday).toLocaleDateString() : '' %>
+          </span>
+            <span class="col py-1 bg-light">
+              <%=animal.temperament%>
             </span>
             <span class="col py-1 bg-light">
-              <%=animal.Temperament%>
-            </span>
-            <span class="col py-1 bg-light">
-              <%=animal.Size%>
+              <%=animal.size%>
             </span>
             <span class="col py-1 bg-light">
               to calculate from database
             </span>
             <span class="col py-1 bg-light">
-              <%=animal.Adopted%>
+              <%=animal.adopted%>
             </span>
             <span class="col py-1 bg-light text-center">
               <button class="btn-sm btn-warning" onclick="adoptAnimal(<%=animal.Id%>)">Adopt</button>
@@ -82,4 +82,5 @@
       </div>
     </div>
 </body>
+
 </html>

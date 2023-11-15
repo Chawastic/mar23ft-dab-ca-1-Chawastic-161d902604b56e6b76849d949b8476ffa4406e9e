@@ -25,7 +25,7 @@ router.post('/signup', async function (req, res, next) {
     try {
         // Create a new user in the Users table
         const newUser = await User.create({
-            fullName: `${firstname} ${lastname}`,
+            fullname: `${firstname} ${lastname}`,
             username,
             password, // Note: You should hash the password before storing it in a real application
             role: 'member', // Assuming a default role for new users

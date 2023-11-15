@@ -6,10 +6,11 @@ router.get('/', async function (req, res, next) {
   try {
     // Fetch all animals from the Animals table
     const animals = await Animal.findAll();
-    res.render('animals', { user: null, animals: animals });
+
+    res.render('animals', { user: req.user, animals: animals });
   } catch (error) {
     console.error('Error fetching animals:', error);
-    next(error); // Pass the error to the error handler
+    res.status(500).send('Internal Server Error');
   }
 });
 
