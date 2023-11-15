@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> DAB - Adopt Animal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/styles.css">
+  <script src="../js/common.js"></script>
+
+</head>
+
+<body>
+  <%- include('./partials/navbar.ejs', {user: user}) %>
+    <div class="container-fluid mt-5">
+      <h2 class="p-3 text-center">Animals for Adoption</h2>
+      <div class="list-group">
+          <div class="row px-3 py-1 w-100 text-center">
+          <span class="col py-1 bg-light ">
+            <button class="btn-sm btn-success" onclick="sqlQuery1()">Popular Animal Names</button>
+          </span>
+          <span class="col py-1 bg-light ">
+            <button class="btn-sm btn-success" onclick="sqlQuery2()">All Adoption Details</button>
+          </span>
+          <span class="col py-1 bg-light ">
+            <button class="btn-sm btn-success" onclick="sqlQuery3()">Animals By Age</button>
+          </span>
+          <span class="col py-1 bg-light ">
+            <button class="btn-sm btn-success" onclick="sqlQuery4()">Animals Born In Date Range</button>
+          </span>
+          <span class="col py-1 bg-light ">
+            <button class="btn-sm btn-success" onclick="sqlQuery5()">Number of Animals Per Size</button>
+          </span>
+          <span class="col py-1 bg-light ">
+            <button class="btn-sm btn-warning" onclick="allAnimals()">All Animals</button>
+          </span>
+        </div>
+        <div class="row px-3 py-1 w-100">
+          <span class="col py-1 bg-noroff">Id</span>
+          <span class="col py-1 bg-noroff">Name</span>
+          <span class="col py-1 bg-noroff">Species</span>
+          <span class="col py-1 bg-noroff">Birthday</span>
+          <span class="col py-1 bg-noroff">Temperament</span>
+          <span class="col py-1 bg-noroff">Size</span>
+          <span class="col py-1 bg-noroff">Age</span>
+          <span class="col py-1 bg-noroff">Adopted</span>
+          <span class="col py-1 bg-noroff">Options</span>
+        </div>
+        <% animals.forEach(function(animal) { %>
+          <div class="row px-3 py-1 w-100">
+            <span class="col py-1 bg-light ">
+              <%=animal.Id%>
+            </span>
+            <span class="col py-1 bg-light">
+              <%=animal.Name%>
+            </span>
+            <span class="col py-1 bg-light">
+              <%=animal.Species%>
+            </span>
+            <span class="col py-1 bg-light">
+              <%=animal.Birthday%>
+            </span>
+            <span class="col py-1 bg-light">
+              <%=animal.Temperament%>
+            </span>
+            <span class="col py-1 bg-light">
+              <%=animal.Size%>
+            </span>
+            <span class="col py-1 bg-light">
+              to calculate from database
+            </span>
+            <span class="col py-1 bg-light">
+              <%=animal.Adopted%>
+            </span>
+            <span class="col py-1 bg-light text-center">
+              <button class="btn-sm btn-warning" onclick="adoptAnimal(<%=animal.Id%>)">Adopt</button>
+              <button class="btn-sm btn-danger" onclick="deleteAnimal(<%=animal.Id%>)">Cancel Adoption</button>
+            </span>
+          </div>
+          <% }); %>
+            <hr>
+
+      </div>
+    </div>
+</body>
+
+</html>
