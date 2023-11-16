@@ -5,6 +5,7 @@
   <title> DAB - Adopt Animal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/stylesheets/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../js/common.js"></script>
 
 </head>
@@ -16,19 +17,19 @@
       <div class="list-group">
           <div class="row px-3 py-1 w-100 text-center">
           <span class="col py-1 bg-light ">
-            <button class="btn-sm btn-success" onclick="sqlQuery1()">Popular Animal Names</button>
+            <button class="btn-sm btn-success" onclick="sortAnimalsByName()">Popular Animal Names</button>
           </span>
           <span class="col py-1 bg-light ">
-            <button class="btn-sm btn-success" onclick="sqlQuery2()">All Adoption Details</button>
+            <button class="btn-sm btn-success" onclick="showAdoptedAnimals()">All Adoption Details</button>
           </span>
           <span class="col py-1 bg-light ">
-            <button class="btn-sm btn-success" onclick="sqlQuery3()">Animals By Age</button>
+            <button class="btn-sm btn-success" onclick="showAnimalsByAge()">Animals By Age</button>
           </span>
           <span class="col py-1 bg-light ">
-            <button class="btn-sm btn-success" onclick="sqlQuery4()">Animals Born In Date Range</button>
+            <button class="btn-sm btn-success" onclick="showAnimalsByDateRange()">Animals Born In Date Range</button>
           </span>
           <span class="col py-1 bg-light ">
-            <button class="btn-sm btn-success" onclick="sqlQuery5()">Number of Animals Per Size</button>
+            <button class="btn-sm btn-success" onclick="showAnimalsPerSize()">Number of Animals Per Size</button>
           </span>
           <span class="col py-1 bg-light ">
             <button class="btn-sm btn-warning" onclick="allAnimals()">All Animals</button>

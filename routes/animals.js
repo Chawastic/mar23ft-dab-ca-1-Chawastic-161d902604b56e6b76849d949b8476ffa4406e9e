@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Animal, Adoption } = require('../models');
+const { Animal, Adoption, sequelize } = require('../models');
+const { Op } = require('sequelize');
 
+// Middleware to ensure user is authenticated
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -10,6 +12,16 @@ function ensureAuthenticated(req, res, next) {
 }
 
 
+// Add this function to your routes file to check if the user is an admin
+function ensureAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user.role === 'admin') {
+    return next();
+  }
+  res.status(403).json({ success: false, message: 'Forbidden: Only admin users can access this feature' });
+}
+
+
+// route for main animals page
 router.get('/', async function (req, res, next) {
   try {
     const animals = await Animal.findAll();
@@ -21,6 +33,78 @@ router.get('/', async function (req, res, next) {
 });
 
 
+
+// Names bu poularity list
+router.get('/popularNames', async function (req, res, next) {
+  try {
+    const animals = await Animal.findAll({
+      order: [['name', 'ASC']],
+    });
+    res.render('animals', { user: req.user, animals: animals });
+  } catch (error) {
+    console.error('Error fetching animals:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+//animals that have been adopted
+router.get('/adoptedAnimals', async function (req, res, next) {
+  try {
+    const adoptedAnimals = await Animal.findAll({
+      where: {
+        adopted: true,
+      },
+    });
+    res.render('animals', { user: req.user, animals: adoptedAnimals });
+  } catch (error) {
+    console.error('Error fetching adopted animals:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+// sort animals by age
+router.get('/animalsByAge', async function (req, res, next) {
+  try {
+    const animalsByAge = await Animal.findAll({
+      order: [['birthday', 'DESC']], // Assuming 'birthday' is the field representing the animal's age
+    });
+    res.render('animals', { user: req.user, animals: animalsByAge });
+  } catch (error) {
+    console.error('Error fetching animals by age:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+//get animals born withing given dates
+router.get('/animalsByDateRange', async function (req, res, next) {
+  res.render('animalsByDateRange', { user: req.user });
+});
+
+router.post('/animalsByDateRange', async function (req, res, next) {
+  try {
+    const { startDate, endDate } = req.body;
+
+    const animalsInDateRange = await Animal.findAll({
+      where: {
+        birthday: {
+          [Op.between]: [startDate, endDate],
+        },
+      },
+    });
+
+    res.render('animals', { user: req.user, animals: animalsInDateRange });
+  } catch (error) {
+    console.error('Error fetching animals by date range:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+// adopt animal
 router.post('/adopt/:animalId', async function (req, res, next) {
   const animalId = req.params.animalId;
 
@@ -47,18 +131,14 @@ router.post('/adopt/:animalId', async function (req, res, next) {
 
 
 
-
+// cancel adoption - admin only
 router.post('/cancelAdoption/:animalId', ensureAuthenticated, async function (req, res, next) {
   try {
     const animalId = req.params.animalId;
-    const userId = req.user.id; // Get the ID of the logged-in user
-
-    // Check if the user has the 'admin' role
+    const userId = req.user.id;
     if (req.user.role !== 'admin') {
       return res.status(403).send('Forbidden: Only admin users can cancel adoptions');
     }
-
-    // Find the corresponding Adoption record
     const adoption = await Adoption.findOne({
       where: { animalId },
     });
@@ -66,23 +146,33 @@ router.post('/cancelAdoption/:animalId', ensureAuthenticated, async function (re
     if (!adoption) {
       return res.status(404).send('Adoption not found');
     }
-
-    // Destroy the Adoption record
     await adoption.destroy();
-
-    // Now, update the Animal record to set adopted back to false
     const animal = await Animal.findByPk(animalId);
     if (animal) {
       await animal.update({ adopted: false });
     }
-
-    // Send a success response
     res.send('Adoption canceled successfully');
   } catch (error) {
     console.error('Error canceling adoption:', error);
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+router.get('/animalsPerSize', ensureAdmin, async function (req, res, next) {
+  try {
+    const animalsPerSize = await Animal.findAll({
+      attributes: ['size', [sequelize.fn('COUNT', 'id'), 'count']],
+      group: ['size'],
+    });
+
+    res.json(animalsPerSize);
+  } catch (error) {
+    console.error('Error fetching animals per size:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
 
 
 module.exports = router;
