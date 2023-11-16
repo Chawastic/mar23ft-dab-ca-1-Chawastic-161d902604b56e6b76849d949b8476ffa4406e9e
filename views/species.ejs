@@ -10,40 +10,46 @@
 
 <body>
   <%- include('./partials/navbar.ejs', {user: user}) %>
-    <div class="container-fluid mt-5">
-      <h2 class="p-3 text-center">Animals for Adoption - species</h2>
-        <div class="list-group">
-          <div class="row px-3 py-1 w-100">
-            <span class="col py-1 bg-noroff">Id</span>
-            <span class="col py-1 bg-noroff">Name</span>
-            <span class="col py-1 bg-noroff">Options</span>
-          </div>
-          <% species.forEach(function(species) { %>
-            <div class="row px-3 py-1 w-100">
-              <span class="col py-1 bg-light">
-                <%=species.Ids%>
-              </span>
-              <span class="col py-1 bg-light">
-                <%=species.Name%>
-              </span>
-              <span class="col py-1 bg-light text-center">
-                <button class="btn-sm btn-warning" onclick="updateSpecies( <%=species.Id%>)">Update species</button>
-                <button class="btn-sm btn-danger" onclick="deleteSpecies( <%=species.Id%>)">Delete species</button>
-              </span>
-            </div>
-            <% }); %>
-              <hr>
-            <div class="row">
-              <div class="col-4"></div>
-              <div class="col-4 text-center mt-2">
-                <form action="/species/add" method="POST">
-                  <button class="btn btn-success" id="btn-add-animal">Add New Species</button>
-                </form>
-              </div>
-              <div class="col-4"></div>
-            </div>
+  <div class="container-fluid mt-5">
+    <h2 class="p-3 text-center">Animals for Adoption - species</h2>
+    <div class="list-group">
+      <div class="row px-3 py-1 w-100">
+        <span class="col py-1 bg-noroff">Id</span>
+        <span class="col py-1 bg-noroff">Name</span>
+        <span class="col py-1 bg-noroff">Options</span>
+      </div>
+      <% species.forEach(function(species) { %>
+        <div class="row px-3 py-1 w-100">
+          <span class="col py-1 bg-light">
+            <%=species.Ids%>
+          </span>
+          <span class="col py-1 bg-light">
+            <%=species.Name%>
+          </span>
+          <span class="col py-1 bg-light text-center">
+            <form action="/species/update" method="POST">
+              <input type="hidden" name="speciesId" value="<%=species.Ids%>">
+              <button class="btn-sm btn-warning" type="submit">Update species</button>
+            </form>
+            <form action="/species/delete" method="POST">
+              <input type="hidden" name="speciesId" value="<%=species.Ids%>">
+              <button class="btn-sm btn-danger" type="submit">Delete species</button>
+            </form>
+          </span>
+        </div>
+      <% }); %>
+      <hr>
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 text-center mt-2">
+          <form action="/species/add" method="POST">
+            <button class="btn btn-success" id="btn-add-animal">Add New Species</button>
+          </form>
+        </div>
+        <div class="col-4"></div>
       </div>
     </div>
+  </div>
 </body>
 
 </html>

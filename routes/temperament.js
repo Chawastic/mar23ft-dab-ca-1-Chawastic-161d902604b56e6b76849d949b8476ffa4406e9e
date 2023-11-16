@@ -6,11 +6,11 @@ router.get('/', async function (req, res, next) {
     try {
         const animals = await Animal.findAll({
             attributes: ['id', 'temperament'],
-            raw: true, // Get plain JSON objects
-            group: ['id', 'temperament'] // Group by id and temperament
+            raw: true,
+            group: ['id', 'temperament']
         });
 
-        console.log(animals); // Log the retrieved data
+        console.log(animals);
 
         const uniqueTemperaments = Array.from(new Set(animals.map(animal => animal.temperament)))
             .map(temperament => {
@@ -19,7 +19,7 @@ router.get('/', async function (req, res, next) {
                     .map(animal => animal.id);
 
                 return {
-                    Ids: ids.join(', '), // Combine IDs into a string
+                    Ids: ids.join(', '),
                     Name: temperament
                 };
             });
