@@ -7,7 +7,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated() && req.user.role === 'admin') {
     return next();
   }
-  res.status(401).send('Unauthorized: User not logged in or not an admin');
+  res.status(401).send('Unauthorized: only accesible as admin');
 };
 
 

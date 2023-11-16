@@ -1,8 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { Animal } = require('../models');
+const { Animal, temperament } = require('../models');
 
-router.get('/', async function (req, res, next) {
+
+// Passport authentication middleware
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated() && req.user.role === 'admin') {
+      return next();
+    }
+    res.status(401).send('Unauthorized: only accesible as admin');
+  };
+  
+
+router.get('/', ensureAuthenticated, async function (req, res, next) {
     try {
         const animals = await Animal.findAll({
             attributes: ['id', 'temperament'],
@@ -25,7 +35,7 @@ router.get('/', async function (req, res, next) {
             });
 
 
-        res.render("temperament", { user: null, temperament: uniqueTemperaments });
+        res.render("temperament", { user: req.user, temperament: uniqueTemperaments });
     } catch (error) {
         console.error('Error fetching temperaments:', error);
         res.status(500).send('Internal Server Error');
