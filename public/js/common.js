@@ -28,7 +28,6 @@ function adoptAnimal(animalId) {
       .then(response => response.text())
       .then(message => {
         console.log(message);
-        alert('Adoption canceled successfully');
       })
       .catch(error => {
         console.error('Error canceling adoption:', error);

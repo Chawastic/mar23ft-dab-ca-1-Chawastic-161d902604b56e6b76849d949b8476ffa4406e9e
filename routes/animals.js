@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 const { Animal, Adoption } = require('../models');
 
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).send('Unauthorized: User not logged in');
+}
+
+
 router.get('/', async function (req, res, next) {
   try {
     const animals = await Animal.findAll();
@@ -38,9 +46,19 @@ router.post('/adopt/:animalId', async function (req, res, next) {
 });
 
 
-router.post('/cancelAdoption/:animalId', async function (req, res, next) {
+
+
+router.post('/cancelAdoption/:animalId', ensureAuthenticated, async function (req, res, next) {
   try {
     const animalId = req.params.animalId;
+    const userId = req.user.id; // Get the ID of the logged-in user
+
+    // Check if the user has the 'admin' role
+    if (req.user.role !== 'admin') {
+      return res.status(403).send('Forbidden: Only admin users can cancel adoptions');
+    }
+
+    // Find the corresponding Adoption record
     const adoption = await Adoption.findOne({
       where: { animalId },
     });
@@ -48,11 +66,17 @@ router.post('/cancelAdoption/:animalId', async function (req, res, next) {
     if (!adoption) {
       return res.status(404).send('Adoption not found');
     }
+
+    // Destroy the Adoption record
     await adoption.destroy();
+
+    // Now, update the Animal record to set adopted back to false
     const animal = await Animal.findByPk(animalId);
     if (animal) {
       await animal.update({ adopted: false });
     }
+
+    // Send a success response
     res.send('Adoption canceled successfully');
   } catch (error) {
     console.error('Error canceling adoption:', error);
