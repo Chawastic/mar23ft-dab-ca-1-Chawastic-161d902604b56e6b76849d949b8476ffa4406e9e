@@ -33,23 +33,6 @@ function adoptAnimal(animalId) {
         console.error('Error canceling adoption:', error);
       });
   }
-  
-
-function updateSpecies(id){
-    newSpecies = prompt("Update species")
-
-}
-
-function deleteSpecies(id){
-}
-
-function updateTemperament(id){
-    newTemperament = prompt("Update temperament")
-}
-
-function deleteTemperament(id){
-}
-
 
 function sortAnimalsByName() {
     $.ajax({
@@ -130,4 +113,3 @@ function sortAnimalsByName() {
   function allAnimals() {
     window.location.href = '/animals';
   }
-

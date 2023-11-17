@@ -33,7 +33,10 @@
                   <input type="text" name="updatedTemp" placeholder="Enter updated temperament">
                   <button class="btn-sm btn-warning" type="submit">Update temperament</button>
                 </form>
-                <button class="btn-sm btn-danger" onclick="deleteTemperament(<%=temp.Id%>)">Delete temperament</button>
+                <form action="/temperament/delete" method="POST">
+                  <input type="hidden" name="temperamentId" value="<%= temp.Ids %>">
+                  <button class="btn-sm btn-danger" type="submit">Delete temperament</button>
+                </form>
               </span>
             </div>
             <% }); %>
@@ -42,7 +45,10 @@
               <div class="col-4"></div>
               <div class="col-4 text-center mt-2">
                 <form action="/temperament/add" method="POST">
-                  <button class="btn btn-success" id="btn-add-animal" >Add New Temperament</button>
+                  <!-- Input field for entering the new temperament name -->
+                  <input type="text" name="newTempName" placeholder="Enter new temperament">
+                  <!-- Submit button for adding a new temperament -->
+                  <button class="btn btn-success" type="submit">Add New Temperament</button>
                 </form>
               </div>
               <div class="col-4"></div>

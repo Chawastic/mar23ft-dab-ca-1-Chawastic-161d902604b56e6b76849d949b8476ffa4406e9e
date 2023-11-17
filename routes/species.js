@@ -52,18 +52,12 @@ router.post('/add', ensureAuthenticated, async function (req, res, next) {
 router.post('/update', ensureAuthenticated, async function (req, res, next) {
     try {
       const { speciesId, newSpeciesName } = req.body;
-  
-      // Check if the animal exists
       const animal = await Animal.findByPk(speciesId);
       if (!animal) {
         return res.status(404).send('Animal not found');
       }
-  
-      // Update the species name
       animal.species = newSpeciesName;
       await animal.save();
-  
-      // Redirect to the species page with the updated list
       res.redirect('/species');
     } catch (error) {
       console.error('Error updating species:', error);
@@ -72,28 +66,27 @@ router.post('/update', ensureAuthenticated, async function (req, res, next) {
   });
 
 
-  router.post('/delete', ensureAuthenticated, async function (req, res, next) {
-    try {
-      const speciesId = parseInt(req.body.speciesId);
-      const animalToDelete = await Animal.findOne({ 
-        where: { name: null } 
-      });
+  // delete species
+router.post('/delete', ensureAuthenticated, async function (req, res, next) {
+  try {
+    const { speciesId } = req.body;
   
-      if (!animalToDelete) {
-        return res.status(404).send('Species has animals');
-      }
-      const deletedAnimal = await Animal.destroy({ where: { name: null } });
-  
-      if (deletedAnimal > 0) {
-        res.redirect('/species');
-      } else {
-        res.status(500).send('Error deleting species');
-      }
-    } catch (error) {
-      console.error('Error deleting species:', error);
-      res.status(500).send('Internal Server Error');
+    const animalsDelete = await Animal.destroy({
+      where: { 
+        id: speciesId, 
+        name: null,
+       }
+    });
+    if (animalsDelete === 0) {
+      return res.status(400).send('Cannot delete the species as there are animals with this species.');
     }
-  });
+    res.redirect('/species');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
   
   
   

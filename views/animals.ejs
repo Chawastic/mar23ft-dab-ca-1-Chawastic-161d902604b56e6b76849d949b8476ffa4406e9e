@@ -67,7 +67,7 @@
               <%=animal.size%>
             </span>
             <span class="col py-1 bg-light">
-              to calculate from database
+              <%= animal.birthday ? (animal.birthday) : '' %>
             </span>
             <span class="col py-1 bg-light">
               <%=animal.adopted%>
