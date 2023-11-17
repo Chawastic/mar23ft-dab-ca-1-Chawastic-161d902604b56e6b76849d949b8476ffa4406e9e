@@ -29,6 +29,7 @@
           <span class="col py-1 bg-light text-center">
             <form action="/species/update" method="POST">
               <input type="hidden" name="speciesId" value="<%=species.Ids%>">
+              <input type="text" name="newSpeciesName" placeholder="Enter new species name">
               <button class="btn-sm btn-warning" type="submit">Update species</button>
             </form>
             <form action="/species/delete" method="POST">
@@ -43,6 +44,7 @@
         <div class="col-4"></div>
         <div class="col-4 text-center mt-2">
           <form action="/species/add" method="POST">
+            <input type="text" name="newSpeciesName" placeholder="Enter new species name" required>
             <button class="btn btn-success" id="btn-add-animal">Add New Species</button>
           </form>
         </div>

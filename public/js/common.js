@@ -130,3 +130,4 @@ function sortAnimalsByName() {
   function allAnimals() {
     window.location.href = '/animals';
   }
+

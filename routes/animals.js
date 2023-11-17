@@ -158,7 +158,7 @@ router.post('/cancelAdoption/:animalId', ensureAuthenticated, async function (re
   }
 });
 
-
+// show amount of animals per certain size as pop-up
 router.get('/animalsPerSize', ensureAdmin, async function (req, res, next) {
   try {
     const animalsPerSize = await Animal.findAll({

@@ -28,7 +28,11 @@
                 <%=temp.Name%>
               </span>
               <span class="col py-1 bg-light text-center">
-                <button class="btn-sm btn-warning" onclick="updateTemperament(<%=temp.Id%>)">Update temperament</button>
+                <form action="/temperament/update-temperament" method="POST">
+                  <input type="hidden" name="animalId" value="<%= temp.Ids %>">
+                  <input type="text" name="updatedTemp" placeholder="Enter updated temperament">
+                  <button class="btn-sm btn-warning" type="submit">Update temperament</button>
+                </form>
                 <button class="btn-sm btn-danger" onclick="deleteTemperament(<%=temp.Id%>)">Delete temperament</button>
               </span>
             </div>
