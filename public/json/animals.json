@@ -1,120 +1,119 @@
 [
-    {
-      "id": 1,
-      "name": "Coco",
-      "species": "Dwarf Hamster",
-      "birthday": "2020-02-12",
-      "temperament": "calm, scared",
-      "size": "small",
-      "adopted": false
-    },
-    {
-      "id": 2,
-      "name": "Ted",
-      "species": "Teddy bear hamster",
-      "birthday": "2021-02-12",
-      "temperament": "calm, scared",
-      "size": "small",
-      "adopted": false
-    },
-    {
-      "id": 3,
-      "name": "Coco",
-      "species": "Jack-Russel",
-      "birthday": "2020-02-12",
-      "temperament": "energetic",
-      "size": "medium",
-      "adopted": false
-    },
-    {
-      "id": 4,
-      "name": "Everest",
-      "species": "Budgy",
-      "birthday": "2019-02-12",
-      "temperament": "calm, happy",
-      "size": "small",
-      "adopted": false
-    },
-    {
-      "id": 5,
-      "name": "Rocko",
-      "species": "Tortoise",
-      "birthday": "2020-02-12",
-      "temperament": "calm, lazy",
-      "size": "medium",
-      "adopted": false
-    },
-    {
-      "id": 6,
-      "name": "Goldy",
-      "species": "Gold Fish",
-      "birthday": "2023-02-12",
-      "temperament": "calm",
-      "size": "small",
-      "adopted": false
-    },
-    {
-      "id": 7,
-      "name": "Lizzy",
-      "species": "Lizzard",
-      "birthday": "2020-02-12",
-      "temperament": "calm,lazy",
-      "size": "medium",
-      "adopted": false
-    },
-    {
-      "id": 8,
-      "name": "Goga",
-      "species": "Bearded Dragon",
-      "birthday": "2018-02-12",
-      "temperament": "calm, lazy, scared",
-      "size": "large",
-      "adopted": true
-    },
-    {
-      "id": 9,
-      "name": "Tweet Tweet",
-      "species": "Parrot",
-      "birthday": "2020-02-12",
-      "temperament": "calm, happy",
-      "size": "large",
-      "adopted": false
-    },
-    {
-      "id": 10,
-      "name": "Toothless",
-      "species": "Corn snake",
-      "birthday": "2017-02-12",
-      "temperament": "scared",
-      "size": "medium",
-      "adopted": false
-    },
-    {
-      "id": 11,
-      "name": "Sophie",
-      "species": "Dwarf Hamster",
-      "birthday": "2020-02-12",
-      "temperament": "calm, scared",
-      "size": "small",
-      "adopted": false
-    },
-    {
-      "id": 12,
-      "name": "Teddy",
-      "species": "Teddy bear hamster",
-      "birthday": "2021-02-12",
-      "temperament": "calm, scared",
-      "size": "small",
-      "adopted": false
-    },
-    {
-      "id": 13,
-      "name": "Rogerpodger",
-      "species": "Parrot",
-      "birthday": "2020-02-18",
-      "temperament": "calm, happy",
-      "size": "large",
-      "adopted": false
-    }
-  ]
-  
+  {
+    "id": 1,
+    "name": "Coco",
+    "species": "Dwarf Hamster",
+    "birthday": "2020-02-12",
+    "temperament": "calm, scared",
+    "size": "small",
+    "adopted": false
+  },
+  {
+    "id": 2,
+    "name": "Ted",
+    "species": "Teddy bear hamster",
+    "birthday": "2021-02-12",
+    "temperament": "calm, scared",
+    "size": "small",
+    "adopted": false
+  },
+  {
+    "id": 3,
+    "name": "Coco",
+    "species": "Jack-Russel",
+    "birthday": "2020-02-12",
+    "temperament": "energetic",
+    "size": "medium",
+    "adopted": false
+  },
+  {
+    "id": 4,
+    "name": "Everest",
+    "species": "Budgy",
+    "birthday": "2019-02-12",
+    "temperament": "calm, happy",
+    "size": "small",
+    "adopted": false
+  },
+  {
+    "id": 5,
+    "name": "Rocko",
+    "species": "Tortoise",
+    "birthday": "2020-02-12",
+    "temperament": "calm, lazy",
+    "size": "medium",
+    "adopted": false
+  },
+  {
+    "id": 6,
+    "name": "Goldy",
+    "species": "Gold Fish",
+    "birthday": "2023-02-12",
+    "temperament": "calm",
+    "size": "small",
+    "adopted": false
+  },
+  {
+    "id": 7,
+    "name": "Lizzy",
+    "species": "Lizzard",
+    "birthday": "2020-02-12",
+    "temperament": "calm,lazy",
+    "size": "medium",
+    "adopted": false
+  },
+  {
+    "id": 8,
+    "name": "Goga",
+    "species": "Bearded Dragon",
+    "birthday": "2018-02-12",
+    "temperament": "calm, lazy, scared",
+    "size": "large",
+    "adopted": true
+  },
+  {
+    "id": 9,
+    "name": "Tweet Tweet",
+    "species": "Parrot",
+    "birthday": "2020-02-12",
+    "temperament": "calm, happy",
+    "size": "large",
+    "adopted": false
+  },
+  {
+    "id": 10,
+    "name": "Toothless",
+    "species": "Corn snake",
+    "birthday": "2017-02-12",
+    "temperament": "scared",
+    "size": "medium",
+    "adopted": false
+  },
+  {
+    "id": 11,
+    "name": "Sophie",
+    "species": "Dwarf Hamster",
+    "birthday": "2020-02-12",
+    "temperament": "calm, scared",
+    "size": "small",
+    "adopted": false
+  },
+  {
+    "id": 12,
+    "name": "Teddy",
+    "species": "Teddy bear hamster",
+    "birthday": "2021-02-12",
+    "temperament": "calm, scared",
+    "size": "small",
+    "adopted": false
+  },
+  {
+    "id": 13,
+    "name": "Rogerpodger",
+    "species": "Parrot",
+    "birthday": "2020-02-18",
+    "temperament": "calm, happy",
+    "size": "large",
+    "adopted": false
+  }
+]

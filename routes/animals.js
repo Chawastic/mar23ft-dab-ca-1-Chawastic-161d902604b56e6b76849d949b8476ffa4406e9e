@@ -11,13 +11,32 @@ function ensureAuthenticated(req, res, next) {
   res.status(401).send('Unauthorized: User not logged in');
 }
 
-
-// Add this function to your routes file to check if the user is an admin
 function ensureAdmin(req, res, next) {
   if (req.isAuthenticated() && req.user.role === 'admin') {
     return next();
   }
   res.status(403).json({ success: false, message: 'Forbidden: Only admin users can access this feature' });
+}
+
+
+
+
+// Function to calculate age
+function calculateAge(birthday) {
+  if (!birthday) {
+    return 'Unknown';
+  }
+
+  const birthDate = new Date(birthday);
+  const currentDate = new Date();
+
+  const ageInMilliseconds = currentDate - birthDate;
+  const ageInYears = ageInMilliseconds / (365 * 24 * 60 * 60 * 1000);
+
+  // Round down to the nearest whole number
+  const age = Math.floor(ageInYears);
+
+  return age;
 }
 
 
@@ -31,6 +50,7 @@ router.get('/', async function (req, res, next) {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 
 
@@ -68,7 +88,7 @@ router.get('/adoptedAnimals', async function (req, res, next) {
 router.get('/animalsByAge', async function (req, res, next) {
   try {
     const animalsByAge = await Animal.findAll({
-      order: [['birthday', 'DESC']], // Assuming 'birthday' is the field representing the animal's age
+      order: [['birthday', 'DESC']],
     });
     res.render('animals', { user: req.user, animals: animalsByAge });
   } catch (error) {

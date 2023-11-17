@@ -12,7 +12,7 @@ function ensureAuthenticated(req, res, next) {
 
 
 
-router.get('/', async function (req, res, next) {
+router.get('/', ensureAuthenticated, async function (req, res, next) {
   try {
     const animals = await Animal.findAll();
     const uniqueSpecies = [...new Set(animals.map(animal => animal.species))];
